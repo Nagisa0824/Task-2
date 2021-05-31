@@ -11,6 +11,14 @@
   <body>
     <%= render 'layouts/header' %>
       <main>
+        <% if user_signed_in? %>
+          <%= form_with url: finder_path, method: :get, local: :true do |f| %>
+            <%= f.select :range, options_for_select([['User'], ['Book']]) %>
+            <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["部分一致","partial_match"]]) %>
+            <%= f.text_field :word %>
+            <%= f.submit "検索" %>
+          <% end %>
+        <% end %>
          <%= yield %>
         <p id="notice"><%= notice %></p>
       </main>
