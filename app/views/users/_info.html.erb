@@ -1,24 +1,31 @@
 <table class='table'>
   <tr><%= attachment_image_tag user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" %></tr>
   <tr>
-	  <th>name</th>
 	  <th><%= user.name %></th>
   </tr>
   <tr>
-	  <th>introduction</th>
-	  <th><%= user.introduction %></th>
+    <th><%= user.introduction %></th>
   </tr>
   <tr>
-    <th>follows</th>
-    <th><%= user.followings.count %></th>
+     <th>follows</th>
+     <th><%= link_to user.followings.count, user_followings_path(user.id) %></th>
   </tr>
   <tr>
     <th>followers</th>
-    <th><%= user.followers.count %></th>
+    <th><%= link_to user.followers.count,user_followers_path(user.id) %></th>
   </tr>
 </table>
 
+<div>
+    <% if current_user.following?(user) %>
+       <%= link_to "フォロー中", user_relationships_path(user.id), method: :delete %>
+      <% else %>
+       <%= link_to "フォローする", user_relationships_path(user.id), method: :post %>
+    <% end %>
+</div>
 
+<% if user == current_user %>
 <div class='div'>
   <%= link_to '',edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
 </div>
+<% end %>

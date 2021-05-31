@@ -14,6 +14,9 @@ class User < ApplicationRecord
   def following?(user)
     followings.include?(user)
   end
+  
+  
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
